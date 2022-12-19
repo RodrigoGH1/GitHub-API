@@ -2,6 +2,8 @@ import { Button, TextField, Typography } from '@mui/material'
 import styled from '@emotion/styled'
 import React, { useState } from 'react'
 
+import { AccountField } from '../../organisms/AccountField/AccountField'
+
 /*
 The SearchField Component consists of multiple components managing the
 input fields necessary to query a GitHub account
@@ -38,6 +40,7 @@ export const SearchField = () => {
             >
                 Search
             </StyledButton>
+            {renderChild && <AccountField value={finalSearchInputVal} />}
         </div>
     )
 }
