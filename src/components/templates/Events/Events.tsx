@@ -13,6 +13,7 @@ import { useQuery } from 'react-query'
 import { useLocation } from 'react-router-dom'
 
 import { getGitHubEvents } from '../../../api'
+import { EventResponse } from '../../../types'
 import { ReturnButton } from '../../molecules/ReturnButton/ReturnButton'
 import {
     FallbackDiv,
@@ -32,6 +33,8 @@ Events renders a template listing the events of a selected user. The table head 
 using the 'EnhancedTableHead' component
 */
 
+export type OrderBy = 'created_at'
+
 export const Events = () => {
     // Used for grabbing the name of the Account from the provided URL
     const { pathname } = useLocation()
@@ -40,7 +43,7 @@ export const Events = () => {
     const [rowsPerPage, setRowsPerPage] = useState<number>(10)
     // States used for sorting
     const [order, setOrder] = useState('asc')
-    const [orderBy, setOrderBy] = useState('created_at')
+    const [orderBy, setOrderBy] = useState<OrderBy>('created_at')
     // Events Query
     const accountName = pathname.split('/')[1]
     const { data, isError, isLoading } = useQuery(
@@ -48,7 +51,11 @@ export const Events = () => {
         () => getGitHubEvents(accountName)
     )
 
-    function descendingComparator(a: any, b: any, orderBy: any) {
+    function descendingComparator(
+        a: EventResponse,
+        b: EventResponse,
+        orderBy: OrderBy
+    ): number {
         if (b[orderBy] < a[orderBy]) {
             return -1
         }
@@ -58,13 +65,13 @@ export const Events = () => {
         return 0
     }
 
-    function getComparator(order: any, orderBy: any) {
+    function getComparator(order: string, orderBy: OrderBy) {
         return order === 'desc'
             ? (a: any, b: any) => descendingComparator(a, b, orderBy)
             : (a: any, b: any) => -descendingComparator(a, b, orderBy)
     }
 
-    function stableSort(array: Event[], comparator: any) {
+    function stableSort(array: EventResponse[], comparator: any) {
         const stabilizedThis = array.map((el: any, index: any) => [el, index])
         stabilizedThis.sort((a: any, b: any) => {
             const order = comparator(a[0], b[0])
@@ -74,7 +81,7 @@ export const Events = () => {
         return stabilizedThis.map((el: any) => el[0])
     }
 
-    const handleRequestSort = (property: string) => {
+    const handleRequestSort = (property: OrderBy) => {
         const isAsc = orderBy === property && order === 'asc'
         setOrder(isAsc ? 'desc' : 'asc')
         setOrderBy(property)
@@ -121,7 +128,7 @@ export const Events = () => {
 
     // Below returns the table body as mapped rows
     const eventsArraySorteable = stableSort(
-        allEvents as any,
+        allEvents as EventResponse[],
         getComparator(order, orderBy)
     ).map((row, index) => {
         const labelId = `enhanced-table-checkbox-${index}`
@@ -146,6 +153,7 @@ export const Events = () => {
             </StyledBodyRow>
         )
     })
+    //debugger
 
     // Slicing logic to avoid too many rows to be rendered at once, the others get paginated
     const slicedDocs = eventsArraySorteable.slice(
