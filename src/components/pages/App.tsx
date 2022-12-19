@@ -6,10 +6,13 @@ import {
 } from '@mui/material'
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
+
 import { SearchField } from '../templates/SearchField/SearchField'
+import { Events } from '../templates/Events/Events'
 
 /*
-The App component ....
+The App component acts as a router for two main component templates, Events and SearchField
 */
 
 const App = () => {
@@ -32,13 +35,18 @@ const App = () => {
     })
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <Typography variant="h2">tapio - Github API</Typography>
-                <SearchField />
-            </ThemeProvider>
-        </QueryClientProvider>
+        <BrowserRouter>
+            <QueryClientProvider client={queryClient}>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Typography variant="h2">tapio - Github API</Typography>
+                    <Routes>
+                        <Route path="/" element={<SearchField />} />
+                        <Route path="/:user/events" element={<Events />} />
+                    </Routes>
+                </ThemeProvider>
+            </QueryClientProvider>
+        </BrowserRouter>
     )
 }
 

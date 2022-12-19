@@ -1,8 +1,11 @@
 # GITHUB API
 
 This react application lets you navigate through different GitHub accounts\
-by searching for an account name. Additionally, you can click on mor details\
+by searching for an account name. Additionally, you can click on mor details
 if you would like to see the all the events from the selected account.
+
+It consists of an App component which acts as a router / fork for two of the main\
+component templates: `Events` and `SearchField`.
 
 Make sure to clone the repository and make sure to install all the dependencies first:
 
