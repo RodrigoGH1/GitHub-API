@@ -22,24 +22,25 @@ export const SearchField = () => {
     const format = /[ `!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~]/
     const isInputError = format.test(inputData)
     return (
-        <div style={{ margin: '15px' }}>
-            <Typography>Search for a Github User</Typography>
-            <TextField
-                label="by Name"
-                data-testid="search-text-field"
-                variant="outlined"
-                onChange={(e: any) => setInputData(e.target.value)}
-                error={isInputError}
-                helperText="Cannot use special characters"
-            />
-            <StyledButton
-                variant="contained"
-                disabled={inputData === '' || isInputError}
-                data-testid="search-button"
-                onClick={(e: any) => handleClick(e)}
-            >
-                Search
-            </StyledButton>
+        <div style={{ margin: '20px' }}>
+            <div style={{ marginLeft: '16px' }}>
+                <Typography>Search for a Github User</Typography>
+                <TextField
+                    data-testid="search-text-field"
+                    variant="outlined"
+                    onChange={(e: any) => setInputData(e.target.value)}
+                    error={isInputError}
+                    helperText="Cannot use special characters"
+                />
+                <StyledButton
+                    variant="contained"
+                    disabled={inputData === '' || isInputError}
+                    data-testid="search-button"
+                    onClick={(e: any) => handleClick(e)}
+                >
+                    Search
+                </StyledButton>
+            </div>
             {renderChild && <AccountField value={finalSearchInputVal} />}
         </div>
     )
@@ -47,5 +48,5 @@ export const SearchField = () => {
 
 export const StyledButton = styled(Button)`
     margin-left: 15px;
-    margin-top: 18px;
+    margin-top: 2px;
 `
