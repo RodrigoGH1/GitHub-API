@@ -2,8 +2,10 @@ import { CircularProgress } from '@mui/material'
 import { capitalize } from 'lodash'
 import React from 'react'
 import { useQuery } from 'react-query'
+import { Link } from 'react-router-dom'
 
 import { getGitHubAccount } from '../../../api'
+import { ReturnButton } from '../../molecules/ReturnButton/ReturnButton'
 import {
     AvatarDiv,
     AvatarIconDiv,
@@ -53,6 +55,7 @@ export const AccountField = ({ value }: AccountProps) => {
         date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear()
     return (
         <div style={{ margin: '25px 0 0 15px' }}>
+            <ReturnButton />
             {
                 <Div>
                     <AvatarDiv>
@@ -71,6 +74,19 @@ export const AccountField = ({ value }: AccountProps) => {
             {<Div>Location: {data?.location ?? '-'}</Div>}
             {<Div>Followers: {data?.followers ?? '-'}</Div>}
             {<Div>Date: {dateFormatted ?? '-'}</Div>}
+            {
+                <Div>
+                    Events:{' '}
+                    {
+                        <Link
+                            style={{ color: '#00ff8c' }}
+                            to={`${data?.login}/events`}
+                        >
+                            More Details
+                        </Link>
+                    }
+                </Div>
+            }
         </div>
     )
 }

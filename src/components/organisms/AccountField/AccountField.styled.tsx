@@ -34,6 +34,6 @@ export const FallbackDiv = styled.div`
 export const StyledAlert = styled(Alert)`
     font-size: 22px;
     div svg {
-        transform: translateY(4px);
+        transform: translateY(5px);
     }
 `
