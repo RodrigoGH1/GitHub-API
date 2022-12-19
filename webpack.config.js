@@ -16,7 +16,7 @@ module.exports = {
     ],
     devServer: {
         port: 3000,
-        historyApiFallback: true,
+        historyApiFallback: true, // for allowing router url changes
     },
     module: {
         rules: [
