@@ -34,6 +34,7 @@ using the 'EnhancedTableHead' component
 */
 
 export type OrderBy = 'created_at'
+export type Order = 'asc' | 'desc'
 
 export const Events = () => {
     // Used for grabbing the name of the Account from the provided URL
@@ -42,9 +43,9 @@ export const Events = () => {
     const [page, setPage] = useState<number>(0)
     const [rowsPerPage, setRowsPerPage] = useState<number>(10)
     // States used for sorting
-    const [order, setOrder] = useState('asc')
+    const [order, setOrder] = useState<Order>('asc')
     const [orderBy, setOrderBy] = useState<OrderBy>('created_at')
-    // Events Query
+    // Events query below
     const accountName = pathname.split('/')[1]
     const { data, isError, isLoading } = useQuery(
         ['getAccountList', accountName],
@@ -65,20 +66,31 @@ export const Events = () => {
         return 0
     }
 
-    function getComparator(order: string, orderBy: OrderBy) {
+    function getComparator(order: Order, orderBy: OrderBy) {
         return order === 'desc'
-            ? (a: any, b: any) => descendingComparator(a, b, orderBy)
-            : (a: any, b: any) => -descendingComparator(a, b, orderBy)
+            ? (a: EventResponse, b: EventResponse) =>
+                  descendingComparator(a, b, orderBy)
+            : (a: EventResponse, b: EventResponse) =>
+                  -descendingComparator(a, b, orderBy)
     }
 
     function stableSort(array: EventResponse[], comparator: any) {
-        const stabilizedThis = array.map((el: any, index: any) => [el, index])
-        stabilizedThis.sort((a: any, b: any) => {
-            const order = comparator(a[0], b[0])
-            if (order !== 0) return order
-            return a[1] - b[1]
+        const stabilizedThis = array.map((el: EventResponse, index: number) => [
+            el,
+            index,
+        ])
+        stabilizedThis.sort(
+            (a: [EventResponse, number], b: [EventResponse, number]) => {
+                const order: number = comparator(a[0], b[0])
+                if (order !== 0) {
+                    return order
+                }
+                return a[1] - b[1]
+            }
+        )
+        return stabilizedThis.map((el: [EventResponse, number]) => {
+            return el[0]
         })
-        return stabilizedThis.map((el: any) => el[0])
     }
 
     const handleRequestSort = (property: OrderBy) => {
