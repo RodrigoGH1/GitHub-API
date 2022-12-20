@@ -8,7 +8,7 @@ import { AccountField } from './AccountField'
 test('Renders Account Field', () => {
     render(
         <MockComponent>
-            <AccountField value="hello" />
+            <AccountField value="GithubTestAccount" />
         </MockComponent>
     )
 })
