@@ -3,10 +3,16 @@
       "outDir": "./dist/",
       "noImplicitAny": true,
       "module": "es6",
-      "target": "es5",
+      "target": "es2016",
       "jsx": "react",
       "allowJs": true,
       "moduleResolution": "node",
-      "allowSyntheticDefaultImports": true
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "forceConsistentCasingInFileNames": true,
+      "skipLibCheck": true, 
+      "rootDir": "./src",
+      "sourceMap": true
     }
   }
+  
