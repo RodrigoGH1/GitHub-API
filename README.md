@@ -7,9 +7,8 @@ if you would like to see the all the events from the selected account.
 It consists of an App component which acts as a router / fork for two of the main\
 component templates: `Events` and `SearchField`.
 
-Make sure to clone the repository and make sure to install all the dependencies first:
-
-### `npm install`
+Make sure to clone the repository and make sure to install all the dependencies first\
+with `npm install`.
 
 ## Available Scripts
 
@@ -24,7 +23,7 @@ The page will reload if you make edits.\
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.
+Launches the test runner across the whole App.
 
 ### `npm run build`
 
