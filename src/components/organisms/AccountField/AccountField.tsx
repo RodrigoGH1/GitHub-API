@@ -54,7 +54,7 @@ export const AccountField = ({ value }: AccountProps) => {
     const dateFormatted =
         date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear()
     return (
-        <div style={{ margin: '25px 0 0 15px' }}>
+        <div data-testid="accountField" style={{ margin: '25px 0 0 15px' }}>
             <ReturnButton />
             {
                 <Div>

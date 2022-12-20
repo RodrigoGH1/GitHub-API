@@ -16,6 +16,7 @@ export const ReturnButton = () => {
             variant="text"
             startIcon={<ChevronLeft />}
             onClick={() => handleClick()}
+            data-testid="returnButton"
         >
             Return to Home
         </Button>
