@@ -8,7 +8,7 @@ import { MockComponent } from '../../../../testMockComponentWrapper/MockComponen
 test('Renders Account Field', () => {
     render(
         <MockComponent>
-            <AccountField value="TestAccount" />
+            <AccountField value="TestAcc" />
         </MockComponent>
     )
 })
