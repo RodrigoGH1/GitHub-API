@@ -203,7 +203,7 @@ export const Events = () => {
                         5,
                         10,
                         25,
-                        { label: 'All', value: -1 },
+                        { label: 'All', value: allEvents?.length },
                     ]}
                     component="div"
                     colSpan={1}
